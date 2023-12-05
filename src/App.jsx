@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import LoadingPage from './pages/LoadingPage';
 import api from './api.js';
 
+const WS_URL = 'ws://127.0.0.1:5173';
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loggedUser, setLoggedUser] = useState(null);
@@ -13,6 +15,17 @@ function App() {
     expiry: '',
     uid: '',
   });
+
+  const ws = new WebSocket(WS_URL)
+
+  ws.onopen = () => {
+    console.log("Connected to websocket")
+    ws.send(JSON.stringify(localStorage.getItem('uid')))
+  }
+
+  ws.onmessage = (message) => {
+    console.log(message)
+  }
 
   useEffect(() => {
     const accessToken = localStorage.getItem('access-token');
