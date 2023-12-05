@@ -80,7 +80,8 @@ function CredentialsPage(props) {
       setAlert('User registered successfully!')
     } catch (error) {
       console.error(error);
-      setError(error.response.data.errors?.full_messages[1] ?? error.response.data.errors?.full_messages[0]); // Set the error state
+      setError('An error has occured. Please try again.'); // Set the error state
+      // setError(error.response.data.errors?.full_messages[1] ?? error.response.data.errors?.full_messages[0]); // Set the error state
     }
   }
 
